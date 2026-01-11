@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +22,16 @@ public class Personal {
 
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "personal")
+    private List<Aluno> alunos = new ArrayList<>();
+
+    @PreRemove
+    private void preRemove() {
+        for (Aluno aluno : alunos) {
+            aluno.setPersonal(null);
+        }
+    }
 
     public Personal() {
     }
@@ -78,5 +90,13 @@ public class Personal {
 
     public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 }

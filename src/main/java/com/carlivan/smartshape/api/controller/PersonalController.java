@@ -1,7 +1,9 @@
 package com.carlivan.smartshape.api.controller;
 
 import com.carlivan.smartshape.api.dto.request.PersonalRequestDTO;
+import com.carlivan.smartshape.api.dto.response.AlunoResumoDTO;
 import com.carlivan.smartshape.api.dto.response.PersonalResponseDTO;
+import com.carlivan.smartshape.api.service.AlunoService;
 import com.carlivan.smartshape.api.service.PersonalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -17,9 +19,11 @@ import java.util.UUID;
 @RequestMapping("/personais")
 public class PersonalController {
     private final PersonalService personalService;
+    private final AlunoService alunoService;
 
-    public PersonalController(PersonalService personalService) {
+    public PersonalController(PersonalService personalService, AlunoService alunoService) {
         this.personalService = personalService;
+        this.alunoService = alunoService;
     }
 
     @PostMapping
@@ -43,6 +47,11 @@ public class PersonalController {
     @GetMapping("/{id}")
     public ResponseEntity<PersonalResponseDTO> buscarPorId(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(personalService.buscarPorId(id));
+    }
+
+    @GetMapping("{id}/alunos")
+    public ResponseEntity<List<AlunoResumoDTO>> listarAlunos(@PathVariable UUID id){
+        return ResponseEntity.ok(alunoService.buscarAlunosPorPersonal(id));
     }
 
     @PutMapping("/{id}")
