@@ -1,14 +1,13 @@
 package com.carlivan.smartshape.api.service;
 
-import com.carlivan.smartshape.api.dto.PersonalRequestDTO;
-import com.carlivan.smartshape.api.dto.PersonalResponseDTO;
+import com.carlivan.smartshape.api.dto.request.PersonalRequestDTO;
+import com.carlivan.smartshape.api.dto.response.PersonalResponseDTO;
 import com.carlivan.smartshape.api.model.Personal;
 import com.carlivan.smartshape.api.repository.PersonalRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 

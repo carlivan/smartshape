@@ -1,14 +1,13 @@
 package com.carlivan.smartshape.api.controller;
 
-import com.carlivan.smartshape.api.dto.PersonalRequestDTO;
-import com.carlivan.smartshape.api.dto.PersonalResponseDTO;
+import com.carlivan.smartshape.api.dto.request.PersonalRequestDTO;
+import com.carlivan.smartshape.api.dto.response.PersonalResponseDTO;
 import com.carlivan.smartshape.api.service.PersonalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;

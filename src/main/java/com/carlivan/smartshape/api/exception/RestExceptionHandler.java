@@ -1,6 +1,6 @@
 package com.carlivan.smartshape.api.exception;
 
-import com.carlivan.smartshape.api.dto.ErroResponse;
+import com.carlivan.smartshape.api.dto.response.ErroResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

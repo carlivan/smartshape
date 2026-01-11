@@ -1,4 +1,4 @@
-package com.carlivan.smartshape.api.dto;
+package com.carlivan.smartshape.api.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.carlivan.smartshape.api.dto;
+package com.carlivan.smartshape.api.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
