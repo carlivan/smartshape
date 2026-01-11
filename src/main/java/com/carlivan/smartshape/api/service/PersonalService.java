@@ -4,6 +4,8 @@ import com.carlivan.smartshape.api.dto.PersonalRequestDTO;
 import com.carlivan.smartshape.api.dto.PersonalResponseDTO;
 import com.carlivan.smartshape.api.model.Personal;
 import com.carlivan.smartshape.api.repository.PersonalRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,6 +20,7 @@ public class PersonalService {
         this.personalRepository = personalRepository;
     }
 
+    @Transactional
     public PersonalResponseDTO salvar(PersonalRequestDTO dto){
         Personal personal = new Personal();
         personal.setNome(dto.nome());
@@ -47,8 +50,38 @@ public class PersonalService {
 
     public PersonalResponseDTO buscarPorId(UUID id){
         Personal personal = personalRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Personal não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Personal não encontrado!"));
 
         return new PersonalResponseDTO(personal.getId(), personal.getNome(), personal.getEmail());
+    }
+
+    @Transactional
+    public PersonalResponseDTO atualizar(UUID id, PersonalRequestDTO requestDTO){
+        Personal personal = personalRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Personal não encontrado!"));
+
+        if (personal.getNome() != null && !personal.getNome().equals(requestDTO.nome())){
+            personal.setNome(requestDTO.nome());
+        }
+        if (personal.getEmail() != null && !personal.getEmail().equals(requestDTO.email())){
+            personal.setEmail(requestDTO.email());
+        }
+        if (personal.getCref() != null && !personal.getCref().equals(requestDTO.cref())){
+            personal.setCref(requestDTO.cref());
+        }
+        if (personal.getEspecialidade() != null && !personal.getEspecialidade().equals(requestDTO.especialidade())){
+            personal.setEspecialidade(requestDTO.especialidade());
+        }
+
+        Personal atualizado = personalRepository.save(personal);
+
+        return new PersonalResponseDTO(atualizado.getId(), atualizado.getNome(), atualizado.getEmail());
+    }
+
+    @Transactional
+    public void deletar(UUID id){
+        Personal personal = personalRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Personal não encontrado"));
+        personalRepository.delete(personal);
     }
 }

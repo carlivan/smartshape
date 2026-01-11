@@ -45,4 +45,15 @@ public class PersonalController {
     public ResponseEntity<PersonalResponseDTO> buscarPorId(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(personalService.buscarPorId(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonalResponseDTO> atualizar(@PathVariable UUID id, @Valid @RequestBody PersonalRequestDTO requestDTO){
+        return ResponseEntity.ok(personalService.atualizar(id, requestDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable UUID id){
+        personalService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
