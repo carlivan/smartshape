@@ -35,8 +35,8 @@ public class PersonalController {
                 .buildAndExpand(responseDTO.id())
                 .toUri();
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(personalService.salvar(requestDTO));
+        return ResponseEntity.created(uri)
+                .body(responseDTO);
     }
 
     @GetMapping

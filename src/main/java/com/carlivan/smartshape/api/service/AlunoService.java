@@ -26,6 +26,7 @@ public class AlunoService {
         this.personalRepository = personalRepository;
     }
 
+    @Transactional
     public AlunoResponseDTO salvar(AlunoRequestDTO alunoRequestDTO){
         Aluno aluno = new Aluno();
         aluno.setNome(alunoRequestDTO.nome());
@@ -47,7 +48,7 @@ public class AlunoService {
     public AlunoResponseDTO buscarPorId(UUID id){
         Aluno aluno = alunoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado!"));
-        
+
         return toResponseDTO(aluno);
     }
 
@@ -65,9 +66,15 @@ public class AlunoService {
                 .toList();
     }
 
+    public List<AlunoResponseDTO> listarTodos(){
+        return alunoRepository.findAll()
+                .stream()
+                .map(this::toResponseDTO)
+                .toList();
+    }
+
     @Transactional
     public AlunoResponseDTO atualizar(UUID id, AlunoRequestDTO alunoRequestDTO){
-        PersonalResponseDTO personalResponseDTO = null;
         Aluno aluno = alunoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado!"));
         if (aluno.getNome() != null && !aluno.getNome().equals(alunoRequestDTO.nome())){
@@ -82,9 +89,7 @@ public class AlunoService {
         if (aluno.getObjetivo() != null && !aluno.getObjetivo().equals(alunoRequestDTO.objetivo())){
             aluno.setObjetivo(alunoRequestDTO.objetivo());
         }
-        if (aluno.getPersonal() != null &&
-                alunoRequestDTO.personalId() != null &&
-                !aluno.getPersonal().getId().equals(alunoRequestDTO.personalId()) ){
+        if (alunoRequestDTO.personalId() != null ){
             Personal personal = personalRepository.findById(alunoRequestDTO.personalId())
                     .orElseThrow(() -> new EntityNotFoundException("Personal não encontrado!!"));
             aluno.setPersonal(personal);
