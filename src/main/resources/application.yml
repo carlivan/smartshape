@@ -20,5 +20,8 @@ spring:
   flyway:
     enabled: true
 
+  springdoc:
+    packages-to-scan: com.carlivan.smartshape.controller
+
 server:
   port: 8080
