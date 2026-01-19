@@ -20,8 +20,19 @@ spring:
   flyway:
     enabled: true
 
-  springdoc:
-    packages-to-scan: com.carlivan.smartshape.controller
+springdoc:
+  packages-to-scan: com.carlivan.smartshape.controller
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,loggers" # Endpoints liberados para a web
+  endpoint:
+    health:
+      show-details: always # Mostra detalhes (como conexão com o banco)
 
 server:
   port: 8080

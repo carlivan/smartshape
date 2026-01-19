@@ -3,6 +3,7 @@ package com.carlivan.smartshape.controller;
 import com.carlivan.smartshape.dto.request.FichaTreinoRequestDTO;
 import com.carlivan.smartshape.dto.response.FichaTreinoResponseDTO;
 import com.carlivan.smartshape.service.FichaTreinoService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,7 +22,7 @@ public class FichaTreinoController {
     }
 
     @PostMapping
-    public ResponseEntity<FichaTreinoResponseDTO> salvar(@RequestBody FichaTreinoRequestDTO requestDTO){
+    public ResponseEntity<FichaTreinoResponseDTO> salvar(@Valid @RequestBody FichaTreinoRequestDTO requestDTO){
         FichaTreinoResponseDTO responseDTO = treinoService.salvar(requestDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

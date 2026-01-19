@@ -8,5 +8,4 @@ public record PersonalRequestDTO(
         @Email String email,
         @NotBlank String cref,
         String especialidade
-) {
-}
+) {}

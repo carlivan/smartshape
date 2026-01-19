@@ -1,6 +1,8 @@
 package com.carlivan.smartshape.dto.request;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -12,6 +14,5 @@ public record FichaTreinoRequestDTO(
         @NotNull UUID alunoId,
         @NotNull LocalDate dataInicio,
         LocalDate dataFim,
-        List<RotinaRequestDTO> rotinas
-        ) {
-}
+        @NotEmpty @Valid List<RotinaRequestDTO> rotinas
+        ) {}

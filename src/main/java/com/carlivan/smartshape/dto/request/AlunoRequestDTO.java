@@ -13,5 +13,4 @@ public record AlunoRequestDTO(
         @NotNull LocalDate dataNascimento,
         String objetivo,
         UUID personalId // Pode ser nulo caso o aluno treine sozinho
-        ) {
-}
+        ) {}

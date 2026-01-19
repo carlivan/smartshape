@@ -22,7 +22,7 @@ public class AlunoController {
     }
 
     @PostMapping
-    public ResponseEntity<AlunoResponseDTO> salvar(@RequestBody AlunoRequestDTO alunoRequestDTO){
+    public ResponseEntity<AlunoResponseDTO> salvar(@Valid @RequestBody AlunoRequestDTO alunoRequestDTO){
         AlunoResponseDTO alunoResponseDTO = alunoService.salvar(alunoRequestDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
