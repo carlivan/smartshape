@@ -7,6 +7,7 @@ import com.smartshape.domain.user.UserRepository;
 import com.smartshape.domain.user.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class AlunoService {
+
+    private final BCryptPasswordEncoder passwordEncoder;
 
     private final AlunoRepository alunoRepository;
     private final UserRepository userRepository;
@@ -32,7 +35,7 @@ public class AlunoService {
         User user = User.builder()
                 .name(request.name())
                 .email(request.email())
-                .password(request.password()) // vamos criptografar na próxima etapa
+                .password(passwordEncoder.encode(request.password())) // vamos criptografar na próxima etapa
                 .role(UserRole.ALUNO)
                 .active(true)
                 .build();
