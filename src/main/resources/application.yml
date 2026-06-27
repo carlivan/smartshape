@@ -1,0 +1,32 @@
+# Perfil ativo - troque para 'prod' no servidor
+spring:
+  profiles:
+    active: dev
+  application:
+    name: smarshape
+
+# Configurações JPA compartilhadas entre perfis
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+# Flyway - controle de versão do banco
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+# Porta padrão da API
+server:
+  port: 8080
+  error:
+    include-message: always
+
+# Logs
+logging:
+  level:
+    root: INFO
+    com.smartshape: DEBUG
+    org.hibernate.SQL: DEBUG
